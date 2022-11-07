@@ -8,8 +8,6 @@ const int SIZE = 5;
 const int MAP_WIDTH = 160;
 const int MAP_HEIGHT = 120;
 
-
-
 int mx, my;
 
 int main(){
@@ -63,6 +61,10 @@ int main(){
 		for(int x = 0; x < MAP_WIDTH; x++){
 			for(int y = 0; y < MAP_HEIGHT; y++){
 				if(map_trees[x][y][0] != 0){ // seed
+					map_trees_buffer[x][y][0] = map_trees[x][y][0];
+					map_trees_buffer[x][y][1] = map_trees[x][y][1];
+					map_points_buffer[x][y] = map_points[x][y];
+
 					if(map_trees[x][y][0] == 1){
 						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){255, 255, 255, 255});
 					
@@ -73,10 +75,52 @@ int main(){
 							map_points_buffer[x][y+1] = map_points[x][y];
 							map_points_buffer[x][y] = 0;
 						}else{
-							map_trees_buffer[x][y][0] = 3; // seed -> sprout
+							map_trees_buffer[x][y][0] = 2; // seed -> sprout
 						}
 					} else if(map_trees[x][y][0] == 2){
 						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){255, 255, 150, 255});
+	
+						if(y - 1 > 0 && map_points[x][y]->genom[map_trees[x][y][1]][0] < 16){ // up
+							if(map_trees[x][y-1][0] == 0){
+								map_trees_buffer[x][y-1][0] = 2;
+								map_trees_buffer[x][y-1][1] = map_points[x][y]->genom[map_trees[x][y][1]][0];
+								map_points_buffer[x][y-1] = map_points[x][y];
+
+								map_trees_buffer[x][y][0] = 3;
+							}
+						}
+
+						if(y + 1 < MAP_HEIGHT && map_points[x][y]->genom[map_trees[x][y][1]][2] < 16){ // down
+							if(map_trees[x][y+1][0] == 0){
+								map_trees_buffer[x][y+1][0] = 2;
+								map_trees_buffer[x][y+1][1] = map_points[x][y]->genom[map_trees[x][y][1]][2];
+								map_points_buffer[x][y+1] = map_points[x][y];
+
+								map_trees_buffer[x][y][0] = 3;
+							}
+						}
+
+						if(x + 1 < MAP_WIDTH && map_points[x][y]->genom[map_trees[x][y][1]][1] < 16){ // right
+							if(map_trees[x+1][y][0] == 0){
+								map_trees_buffer[x+1][y][0] = 2;
+								map_trees_buffer[x+1][y][1] = map_points[x][y]->genom[map_trees[x][y][1]][1];
+								map_points_buffer[x+1][y] = map_points[x][y];
+
+								map_trees_buffer[x][y][0] = 3;
+							}
+						}
+
+						if(x - 1 >= 0 && map_points[x][y]->genom[map_trees[x][y][1]][3] < 16){ // left
+							if(map_trees[x-1][y][0] == 0){
+								map_trees_buffer[x-1][y][0] = 2;
+								map_trees_buffer[x-1][y][1] = map_points[x][y]->genom[map_trees[x][y][1]][3];
+								map_points_buffer[x-1][y] = map_points[x][y];
+
+								map_trees_buffer[x][y][0] = 3;
+							}
+						}
+						
+
 					} else if(map_trees[x][y][0] == 3){
 						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){50, 255, 50, 255});
 					}
@@ -104,9 +148,13 @@ int main(){
 
 		for(int x = 0; x < MAP_WIDTH; x++){
 			for(int y = 0; y < MAP_HEIGHT; y++){
-				map_trees[x][y][0] = map_trees_buffer[x][y][0];
-				map_trees[x][y][1] = map_trees_buffer[x][y][1];
-				map_points[x][y] = map_points_buffer[x][y];
+					map_trees[x][y][0] = map_trees_buffer[x][y][0];
+					map_trees[x][y][1] = map_trees_buffer[x][y][1];
+					map_points[x][y] = map_points_buffer[x][y];
+
+					map_trees_buffer[x][y][0] = 0;
+					map_trees_buffer[x][y][1] = 0;
+					map_points_buffer[x][y] = 0;
 			}
 		}
 		
