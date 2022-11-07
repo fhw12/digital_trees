@@ -81,6 +81,16 @@ int main(){
 							DrawText(TextFormat("gen: %d", map_trees[x][y][1]), 10, 85, 10, LIGHTGRAY);
 							DrawText(TextFormat("days: %d/%d", map_points[x][y]->life_days, map_points[x][y]->max_life_days), 10, 100, 10, LIGHTGRAY);
 
+							for(int j = 0; j < 16; j++){
+								if(j == map_trees[x][y][1]){
+									DrawText(TextFormat("%d > ", j), 10, 120+j*20, 10, RED);
+								}else{
+									DrawText(TextFormat("%d > ", j), 10, 120+j*20, 10, LIGHTGRAY);
+								}
+								for(int i = 0; i < 4; i++){
+									DrawText(TextFormat("%d", map_points[x][y]->genom[j][i]), 30+i*20, 120+j*20, 10, LIGHTGRAY);
+								}
+							}
 						}
 
 					}
