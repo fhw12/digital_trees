@@ -25,7 +25,11 @@ int main(){
 	NodeTree *first_node_tree_ptr = node_tree_init();
 
 	tree_ptr = create_tree(first_node_tree_ptr);
+	map_trees[80][110][0] = 1;
+	map_trees[80][110][1] = 0;
+	map_points[80][110] = tree_ptr;
 
+	/*
 	tree_ptr = first_node_tree_ptr;
 	if(tree_ptr != 0){
 		while(tree_ptr->next){
@@ -42,7 +46,7 @@ int main(){
 			}
 		}
 	}
-	
+	*/
 
 	while(!WindowShouldClose()){
 		mx = GetMouseX();
@@ -55,6 +59,16 @@ int main(){
 		DrawRectangleLines(5, 5, 100, 50, WHITE);
 		DrawText(TextFormat("FPS: %d", GetFPS()), 10, 10, 10, BLACK);
 		DrawText(TextFormat("mouse: (%d, %d)", mx, my), 10, 30, 10, BLACK);
+
+		for(int x = 0; x < MAP_WIDTH; x++){
+			for(int y = 0; y < MAP_HEIGHT; y++){
+				if(map_trees[x][y][0] != 0){ // seed
+					if(map_trees[x][y][0] == 1){
+						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){255, 255, 255, 255});
+					}
+				}
+			}
+		}
 		
 		EndDrawing();
 	}
