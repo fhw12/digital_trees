@@ -10,7 +10,7 @@ NodeTree *node_tree_init(){
 	return first_node_tree;
 }
 
-NodeTree *new_node_tree(NodeTree* ptr){
+NodeTree *new_node_tree(NodeTree *ptr){
 	if(ptr != 0){
 		while(ptr->next != 0){
 			ptr = ptr->next;
@@ -20,12 +20,27 @@ NodeTree *new_node_tree(NodeTree* ptr){
 	ptr->next = malloc(sizeof(NodeTree));
 	ptr = ptr->next;
 	ptr->next = 0;
-	ptr->energy = 0;
 
 	return ptr;
 }
 
-void delete_node_tree(NodeTree* ptr, NodeTree* delete_ptr){
+NodeTree *create_tree(NodeTree *ptr){
+	ptr = new_node_tree(ptr);
+
+	ptr->energy = 300;
+	ptr->life_days = 0;
+	ptr->max_life_days = 100;
+
+	for(int i = 0; i < 16; i++){
+		for(int j = 0; j < 4; j++){
+			ptr->genom[i][j] = rand() % 32;
+		}
+	}
+
+	return ptr;
+}
+
+void delete_node_tree(NodeTree *ptr, NodeTree *delete_ptr){
 	if(ptr != 0){
 		while(ptr->next != delete_ptr){
 			ptr = ptr->next;

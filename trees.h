@@ -9,4 +9,5 @@ typedef struct node_tree {
 
 NodeTree *node_tree_init();
 NodeTree *new_node_tree(NodeTree* ptr);
+NodeTree *create_tree(NodeTree* ptr);
 void delete_node_tree(NodeTree* ptr, NodeTree* delete_ptr);

@@ -24,14 +24,23 @@ int main(){
 	NodeTree *tree_ptr;
 	NodeTree *first_node_tree_ptr = node_tree_init();
 
-	tree_ptr = new_node_tree(first_node_tree_ptr);
-	tree_ptr->energy = 5;
+	tree_ptr = create_tree(first_node_tree_ptr);
+
 	tree_ptr = first_node_tree_ptr;
 	if(tree_ptr != 0){
 		while(tree_ptr->next){
-			printf("%d\n", tree_ptr->energy);
 			tree_ptr = tree_ptr->next;
-		} printf("%d\n", tree_ptr->energy);
+			printf("energy: %d\n", tree_ptr->energy);
+			printf("days: %d/%d\n", tree_ptr->life_days, tree_ptr->max_life_days);
+			printf("genom:\n");
+			for(int i = 0; i < 16; i++){
+				printf("%d\t>\t", i);
+				for(int j = 0; j < 4; j++){
+					printf("%d ", tree_ptr->genom[i][j]);
+				}
+				printf("\n");
+			}
+		}
 	}
 	
 
