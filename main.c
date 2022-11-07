@@ -27,24 +27,7 @@ int main(){
 	map_trees[80][110][1] = 0;
 	map_points[80][110] = tree_ptr;
 
-	/*
-	tree_ptr = first_node_tree_ptr;
-	if(tree_ptr != 0){
-		while(tree_ptr->next){
-			tree_ptr = tree_ptr->next;
-			printf("energy: %d\n", tree_ptr->energy);
-			printf("days: %d/%d\n", tree_ptr->life_days, tree_ptr->max_life_days);
-			printf("genom:\n");
-			for(int i = 0; i < 16; i++){
-				printf("%d\t>\t", i);
-				for(int j = 0; j < 4; j++){
-					printf("%d ", tree_ptr->genom[i][j]);
-				}
-				printf("\n");
-			}
-		}
-	}
-	*/
+	SetTargetFPS(20);
 
 	while(!WindowShouldClose()){
 		mx = GetMouseX();
@@ -62,7 +45,7 @@ int main(){
 					map_trees_buffer[x][y][1] = map_trees[x][y][1];
 					map_points_buffer[x][y] = map_points[x][y];
 
-					if(map_trees[x][y][0] == 1){
+					if(map_trees[x][y][0] == 1){ // seed
 						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){255, 255, 255, 255});
 					
 						if(y + 1 < MAP_HEIGHT){
@@ -74,7 +57,7 @@ int main(){
 						}else{
 							map_trees_buffer[x][y][0] = 2; // seed -> sprout
 						}
-					} else if(map_trees[x][y][0] == 2){
+					} else if(map_trees[x][y][0] == 2){ // sprout
 						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){255, 255, 150, 255});
 	
 						if(y - 1 > 0 && map_points[x][y]->genom[map_trees[x][y][1]][0] < 16){ // up
@@ -118,7 +101,7 @@ int main(){
 						}
 						
 
-					} else if(map_trees[x][y][0] == 3){
+					} else if(map_trees[x][y][0] == 3){ // tree
 						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){50, 255, 50, 255});
 					}
 
@@ -151,13 +134,25 @@ int main(){
 		for(int x = 0; x < MAP_WIDTH; x++){
 			for(int y = 0; y < MAP_HEIGHT; y++){
 
-				if(map_points_buffer != 0){
+				map_trees[x][y][0] = 0;
+				map_trees[x][y][1] = 0;
+				map_points[x][y] = 0;
 
+				if(map_points_buffer[x][y] != 0){
+					if(map_points_buffer[x][y]->life_days > map_points_buffer[x][y]->max_life_days){
+						if(map_trees_buffer[x][y][0] == 2){
+							//new tree node
+							NodeTree *ptr = create_tree(first_node_tree_ptr);
+							map_trees[x][y][0] = 1; // seed
+							map_trees[x][y][1] = 0; // active gen
+							map_points[x][y] = ptr; // point in new tree
+						}
+					}else{
+						map_trees[x][y][0] = map_trees_buffer[x][y][0];
+						map_trees[x][y][1] = map_trees_buffer[x][y][1];
+						map_points[x][y] = map_points_buffer[x][y];
+					}
 				}
-
-				map_trees[x][y][0] = map_trees_buffer[x][y][0];
-				map_trees[x][y][1] = map_trees_buffer[x][y][1];
-				map_points[x][y] = map_points_buffer[x][y];
 
 				map_trees_buffer[x][y][0] = 0;
 				map_trees_buffer[x][y][1] = 0;
