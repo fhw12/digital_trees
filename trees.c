@@ -29,7 +29,7 @@ NodeTree *create_tree(NodeTree *ptr){
 
 	ptr->energy = 300;
 	ptr->life_days = 0;
-	ptr->max_life_days = 100;
+	ptr->max_life_days = 95 + rand() % 11; // [95; 105]
 
 	for(int i = 0; i < 16; i++){
 		for(int j = 0; j < 4; j++){
@@ -41,11 +41,11 @@ NodeTree *create_tree(NodeTree *ptr){
 }
 
 void delete_node_tree(NodeTree *ptr, NodeTree *delete_ptr){
-	if(ptr != 0){
+	//if(ptr != 0){
 		while(ptr->next != delete_ptr){
 			ptr = ptr->next;
 		}
-	}
+	//}
 
 	if(delete_ptr->next != 0){
 		ptr->next = delete_ptr->next;
