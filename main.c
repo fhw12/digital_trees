@@ -53,10 +53,7 @@ int main(){
 		BeginDrawing();
 
 		ClearBackground((Color){20, 20, 20, 255});
-		DrawRectangle(5, 5, 100, 50, Fade(WHITE, 0.9f));
-		DrawRectangleLines(5, 5, 100, 50, WHITE);
-		DrawText(TextFormat("FPS: %d", GetFPS()), 10, 10, 10, BLACK);
-		DrawText(TextFormat("mouse: (%d, %d)", mx, my), 10, 30, 10, BLACK);
+		
 
 		for(int x = 0; x < MAP_WIDTH; x++){
 			for(int y = 0; y < MAP_HEIGHT; y++){
@@ -146,16 +143,34 @@ int main(){
 			}
 		}
 
+		DrawRectangle(5, 5, 100, 50, Fade(WHITE, 0.9f));
+		DrawRectangleLines(5, 5, 100, 50, WHITE);
+		DrawText(TextFormat("FPS: %d", GetFPS()), 10, 10, 10, BLACK);
+		DrawText(TextFormat("mouse: (%d, %d)", mx, my), 10, 30, 10, BLACK);
+
 		for(int x = 0; x < MAP_WIDTH; x++){
 			for(int y = 0; y < MAP_HEIGHT; y++){
-					map_trees[x][y][0] = map_trees_buffer[x][y][0];
-					map_trees[x][y][1] = map_trees_buffer[x][y][1];
-					map_points[x][y] = map_points_buffer[x][y];
 
-					map_trees_buffer[x][y][0] = 0;
-					map_trees_buffer[x][y][1] = 0;
-					map_points_buffer[x][y] = 0;
+				if(map_points_buffer != 0){
+
+				}
+
+				map_trees[x][y][0] = map_trees_buffer[x][y][0];
+				map_trees[x][y][1] = map_trees_buffer[x][y][1];
+				map_points[x][y] = map_points_buffer[x][y];
+
+				map_trees_buffer[x][y][0] = 0;
+				map_trees_buffer[x][y][1] = 0;
+				map_points_buffer[x][y] = 0;
+			
 			}
+		}
+
+		tree_ptr = first_node_tree_ptr;
+		while(tree_ptr->next != 0){
+			tree_ptr = tree_ptr->next;
+
+			tree_ptr->life_days++;
 		}
 		
 		EndDrawing();
