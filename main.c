@@ -1,5 +1,7 @@
 #include <stdio.h>
-#include <raylib.h>
+#include "raylib.h"
+
+#include "trees.h"
 
 const int WIDTH = 800, HEIGHT = 600;
 const int SIZE = 5;
@@ -10,6 +12,29 @@ int mx, my;
 
 int main(){
 	InitWindow(WIDTH, HEIGHT, "Digital Trees");
+	
+	NodeTree *first_node_tree_ptr, *ptr, *ptr2;
+	first_node_tree_ptr = node_tree_init();
+
+	ptr = new_node_tree(first_node_tree_ptr);
+	ptr->energy = 5;
+
+	ptr2 = new_node_tree(first_node_tree_ptr);
+	ptr2->energy = 10;
+
+	ptr = new_node_tree(first_node_tree_ptr);
+	ptr->energy = 15;
+
+	delete_node_tree(first_node_tree_ptr, ptr2);
+	ptr = first_node_tree_ptr;
+
+	if(ptr != 0){
+		while(ptr->next){
+			printf("%d\n", ptr->energy);
+			ptr = ptr->next;
+		} printf("%d\n", ptr->energy);
+	}
+
 	while(!WindowShouldClose()){
 		mx = GetMouseX();
 		my = GetMouseY();
