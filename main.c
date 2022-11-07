@@ -75,6 +75,14 @@ int main(){
 						}else{
 							//map_trees_buffer[x][y][0] = 2; // seed -> sprout
 						}
+
+						if(mx > x * SIZE && mx <= x * SIZE + SIZE && my > y * SIZE && my <= y * SIZE + SIZE){
+							DrawText(TextFormat("type: %d", map_trees[x][y][0]), 10, 70, 10, LIGHTGRAY);
+							DrawText(TextFormat("gen: %d", map_trees[x][y][1]), 10, 85, 10, LIGHTGRAY);
+							DrawText(TextFormat("days: %d/%d", map_points[x][y]->life_days, map_points[x][y]->max_life_days), 10, 100, 10, LIGHTGRAY);
+
+						}
+
 					}
 				}
 			}
