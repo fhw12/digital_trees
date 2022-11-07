@@ -13,27 +13,19 @@ int mx, my;
 int main(){
 	InitWindow(WIDTH, HEIGHT, "Digital Trees");
 	
-	NodeTree *first_node_tree_ptr, *ptr, *ptr2;
-	first_node_tree_ptr = node_tree_init();
+	NodeTree *tree_ptr;
+	const NodeTree *first_node_tree_ptr = node_tree_init();
 
-	ptr = new_node_tree(first_node_tree_ptr);
-	ptr->energy = 5;
-
-	ptr2 = new_node_tree(first_node_tree_ptr);
-	ptr2->energy = 10;
-
-	ptr = new_node_tree(first_node_tree_ptr);
-	ptr->energy = 15;
-
-	delete_node_tree(first_node_tree_ptr, ptr2);
-	ptr = first_node_tree_ptr;
-
-	if(ptr != 0){
-		while(ptr->next){
-			printf("%d\n", ptr->energy);
-			ptr = ptr->next;
-		} printf("%d\n", ptr->energy);
+	tree_ptr = new_node_tree(first_node_tree_ptr);
+	tree_ptr->energy = 5;
+	tree_ptr = first_node_tree_ptr;
+	if(tree_ptr != 0){
+		while(tree_ptr->next){
+			printf("%d\n", tree_ptr->energy);
+			tree_ptr = tree_ptr->next;
+		} printf("%d\n", tree_ptr->energy);
 	}
+	
 
 	while(!WindowShouldClose()){
 		mx = GetMouseX();
