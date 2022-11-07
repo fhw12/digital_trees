@@ -65,8 +65,26 @@ int main(){
 				if(map_trees[x][y][0] != 0){ // seed
 					if(map_trees[x][y][0] == 1){
 						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){255, 255, 255, 255});
+					
+						if(y + 1 < MAP_HEIGHT){
+							map_trees_buffer[x][y+1][0] = 1;
+							map_trees_buffer[x][y][0] = 0;
+
+							map_points_buffer[x][y+1] = map_points[x][y];
+							map_points_buffer[x][y] = 0;
+						}else{
+							//map_trees_buffer[x][y][0] = 2; // seed -> sprout
+						}
 					}
 				}
+			}
+		}
+
+		for(int x = 0; x < MAP_WIDTH; x++){
+			for(int y = 0; y < MAP_HEIGHT; y++){
+				map_trees[x][y][0] = map_trees_buffer[x][y][0];
+				map_trees[x][y][1] = map_trees_buffer[x][y][1];
+				map_points[x][y] = map_points_buffer[x][y];
 			}
 		}
 		
