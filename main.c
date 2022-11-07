@@ -27,7 +27,7 @@ int main(){
 	map_trees[80][110][1] = 0;
 	map_points[80][110] = tree_ptr;
 
-	SetTargetFPS(20);
+	//SetTargetFPS(20);
 
 	while(!WindowShouldClose()){
 		mx = GetMouseX();
@@ -161,13 +161,24 @@ int main(){
 			}
 		}
 
+		int count_trees = 0;
 		tree_ptr = first_node_tree_ptr;
 		while(tree_ptr->next != 0){
 			tree_ptr = tree_ptr->next;
 
-			tree_ptr->life_days++;
+			if(tree_ptr->life_days > tree_ptr->max_life_days){
+				NodeTree *tmp_next = tree_ptr->next;
+				delete_node_tree(first_node_tree_ptr, tree_ptr);
+				tree_ptr = tmp_next;
+			}
+			else{
+				tree_ptr->life_days++;
+			}
+			count_trees++;
 		}
 		
+		DrawText(TextFormat("trees count: %d", count_trees), 120, 10, 10, WHITE);
+
 		EndDrawing();
 	}
 
