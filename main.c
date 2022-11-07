@@ -8,13 +8,21 @@ const int SIZE = 5;
 const int MAP_WIDTH = 160;
 const int MAP_HEIGHT = 120;
 
+
+
 int mx, my;
 
 int main(){
 	InitWindow(WIDTH, HEIGHT, "Digital Trees");
+
+	NodeTree *map_points[MAP_WIDTH][MAP_HEIGHT];
+	int map_trees[MAP_WIDTH][MAP_HEIGHT][2];
+
+	NodeTree *map_points_buffer[MAP_WIDTH][MAP_HEIGHT];
+	int map_trees_buffer[MAP_WIDTH][MAP_HEIGHT][2];
 	
 	NodeTree *tree_ptr;
-	const NodeTree *first_node_tree_ptr = node_tree_init();
+	NodeTree *first_node_tree_ptr = node_tree_init();
 
 	tree_ptr = new_node_tree(first_node_tree_ptr);
 	tree_ptr->energy = 5;
