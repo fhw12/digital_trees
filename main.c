@@ -12,6 +12,7 @@ const int MAX_LIGHT_POWER = 8;
 int light_power = MAX_LIGHT_POWER;
 int energy_power = 3;
 
+unsigned long generation_count = 0;
 int mx, my;
 
 int main(){
@@ -218,7 +219,11 @@ int main(){
 		}
 		}
 
-		DrawText(TextFormat("trees count: %d", count_trees), 120, 10, 10, WHITE);
+		generation_count++;
+
+		DrawText(TextFormat("generation: %d", generation_count), 120, 10, 10, WHITE);
+		DrawText(TextFormat("trees: %d", count_trees), 120, 30, 10, WHITE);
+
 
 		EndDrawing();
 	}
