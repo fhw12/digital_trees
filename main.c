@@ -179,21 +179,28 @@ int main(){
 
 		int count_trees = 0;
 		tree_ptr = first_node_tree_ptr;
+		if(tree_ptr != 0){
 		while(tree_ptr->next != 0){
 			tree_ptr = tree_ptr->next;
-
+			//if(tree_ptr->life_days != 0){ break; }
 			if(tree_ptr->life_days > tree_ptr->max_life_days || tree_ptr->energy < 0){
 				NodeTree *tmp_next;
-				if(tree_ptr->next != 0) { tmp_next = tree_ptr->next; }
+				if(tree_ptr->next != 0){ tmp_next = tree_ptr->next; } else { tmp_next = 0; }
 				delete_node_tree(first_node_tree_ptr, tree_ptr);
-				if(tree_ptr!=0){ tree_ptr = tmp_next; }else {break;}
+				//break;
+				if(tmp_next != 0){
+					tree_ptr = tmp_next; continue;
+				} else {
+					break;
+				}
 			}
 			else{
 				tree_ptr->life_days++;
 			}
 			count_trees++;
 		}
-		
+		}
+
 		DrawText(TextFormat("trees count: %d", count_trees), 120, 10, 10, WHITE);
 
 		EndDrawing();

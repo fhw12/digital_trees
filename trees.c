@@ -6,16 +6,18 @@ NodeTree *first_node_tree;
 NodeTree *node_tree_init(){
 	first_node_tree = malloc(sizeof(NodeTree));
 	first_node_tree->next = 0;
+	first_node_tree->life_days = 0;
+	first_node_tree->max_life_days = 0;
 
 	return first_node_tree;
 }
 
 NodeTree *new_node_tree(NodeTree *ptr){
-	if(ptr != 0){
-		while(ptr->next != 0){
-			ptr = ptr->next;
-		}
+	//if(ptr != 0){
+	while(ptr->next != 0){
+		ptr = ptr->next;
 	}
+	//}
 
 	ptr->next = malloc(sizeof(NodeTree));
 	ptr = ptr->next;
@@ -27,7 +29,7 @@ NodeTree *new_node_tree(NodeTree *ptr){
 NodeTree *create_tree(NodeTree *ptr){
 	ptr = new_node_tree(ptr);
 
-	ptr->energy = 300;
+	ptr->energy = 3000;
 	ptr->life_days = 0;
 	ptr->max_life_days = 95 + rand() % 11; // [95; 105]
 
@@ -45,13 +47,14 @@ void delete_node_tree(NodeTree *ptr, NodeTree *delete_ptr){
 		while(ptr->next != delete_ptr){
 			ptr = ptr->next;
 		}
+	
+
+		if(delete_ptr->next != 0){
+			ptr->next = delete_ptr->next;
+		}else{
+			ptr->next = 0;
+		}
+		
+		free(delete_ptr);
 	//}
-
-	if(delete_ptr->next != 0){
-		ptr->next = delete_ptr->next;
-	}else{
-		ptr->next = 0;
-	}
-
-	free(delete_ptr);
 }
