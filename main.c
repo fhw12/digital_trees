@@ -37,7 +37,7 @@ int main(){
 	NodeTree *tree_ptr;
 	NodeTree *first_node_tree_ptr = node_tree_init();
 
-	tree_ptr = create_tree(first_node_tree_ptr);
+	tree_ptr = create_tree(first_node_tree_ptr, 0);
 	map_trees[80][110][0] = 1;
 	map_trees[80][110][1] = 0;
 	map_points[80][110] = tree_ptr;
@@ -174,7 +174,7 @@ int main(){
 						if(map_trees_buffer[x][y][0] == 2){
 							if(map_points_buffer[x][y]->energy >= 0){
 								//new tree node
-								NodeTree *ptr = create_tree(first_node_tree_ptr);
+								NodeTree *ptr = create_tree(first_node_tree_ptr, map_points_buffer[x][y]);
 								map_trees[x][y][0] = 1; // seed
 								map_trees[x][y][1] = 0; // active gen
 								map_points[x][y] = ptr; // point in new tree

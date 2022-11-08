@@ -26,16 +26,24 @@ NodeTree *new_node_tree(NodeTree *ptr){
 	return ptr;
 }
 
-NodeTree *create_tree(NodeTree *ptr){
+NodeTree *create_tree(NodeTree *ptr, NodeTree *parent){
 	ptr = new_node_tree(ptr);
 
 	ptr->energy = 300;
 	ptr->life_days = 0;
 	ptr->max_life_days = 95 + rand() % 11; // [95; 105]
 
-	for(int i = 0; i < 16; i++){
-		for(int j = 0; j < 4; j++){
-			ptr->genom[i][j] = rand() % 32;
+	if(parent == 0){
+		for(int i = 0; i < 16; i++){
+			for(int j = 0; j < 4; j++){
+				ptr->genom[i][j] = rand() % 32;
+			}
+		}
+	}else{
+		for(int i = 0; i < 16; i++){
+			for(int j = 0; j < 4; j++){
+				ptr->genom[i][j] = parent->genom[i][j];
+			}
 		}
 	}
 
