@@ -42,7 +42,11 @@ NodeTree *create_tree(NodeTree *ptr, NodeTree *parent){
 	}else{
 		for(int i = 0; i < 16; i++){
 			for(int j = 0; j < 4; j++){
-				ptr->genom[i][j] = parent->genom[i][j];
+				if(rand() % 100 == 0){
+					ptr->genom[i][j] = rand() % 32;
+				}else{
+					ptr->genom[i][j] = parent->genom[i][j];
+				}
 			}
 		}
 	}
