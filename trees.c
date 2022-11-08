@@ -29,7 +29,7 @@ NodeTree *new_node_tree(NodeTree *ptr){
 NodeTree *create_tree(NodeTree *ptr){
 	ptr = new_node_tree(ptr);
 
-	ptr->energy = 3000;
+	ptr->energy = 300;
 	ptr->life_days = 0;
 	ptr->max_life_days = 95 + rand() % 11; // [95; 105]
 

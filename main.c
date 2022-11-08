@@ -8,6 +8,10 @@ const int SIZE = 5;
 const int MAP_WIDTH = 160;
 const int MAP_HEIGHT = 120;
 
+const int MAX_LIGHT_POWER = 8;
+int light_power = MAX_LIGHT_POWER;
+int energy_power = 3;
+
 int mx, my;
 
 int main(){
@@ -50,8 +54,10 @@ int main(){
 		ClearBackground((Color){20, 20, 20, 255});
 
 		for(int x = 0; x < MAP_WIDTH; x++){
+			light_power = MAX_LIGHT_POWER;
+			energy_power = 3;
 			for(int y = 0; y < MAP_HEIGHT; y++){
-				if(map_trees[x][y][0] != 0){ // seed
+				if(map_trees[x][y][0] != 0){
 					map_trees_buffer[x][y][0] = map_trees[x][y][0];
 					map_trees_buffer[x][y][1] = map_trees[x][y][1];
 					map_points_buffer[x][y] = map_points[x][y];
@@ -111,7 +117,7 @@ int main(){
 							}
 						}
 
-						map_points[x][y]->energy -= 1;
+						
 						
 
 					} else if(map_trees[x][y][0] == 3){ // tree
@@ -136,6 +142,17 @@ int main(){
 						}
 					}
 
+					if(light_power > 0 && energy_power > 0){
+						map_points[x][y]->energy += light_power * energy_power;
+					}
+
+					light_power--;
+					energy_power--;
+
+					map_points[x][y]->energy -= 10;
+
+				} else {
+					if(energy_power < 3) { energy_power++; }
 				}
 			}
 		}
