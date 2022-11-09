@@ -40,9 +40,9 @@ int main(){
 	NodeTree *first_node_tree_ptr = node_tree_init();
 
 	tree_ptr = create_tree(first_node_tree_ptr, 0);
-	map_trees[250][190][0] = 1;
-	map_trees[250][190][1] = 0;
-	map_points[250][190] = tree_ptr;
+	map_trees[150][190][0] = 1;
+	map_trees[150][190][1] = 0;
+	map_points[150][190] = tree_ptr;
 
 	while(!WindowShouldClose()){
 		mx = GetMouseX();
@@ -126,7 +126,7 @@ int main(){
 						
 
 					} else if(map_trees[x][y][0] == 3){ // tree
-						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){50, 255, 50, 255});
+						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){map_points[x][y]->color[0], map_points[x][y]->color[1], map_points[x][y]->color[2], 255});
 
 					}
 

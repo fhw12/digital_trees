@@ -29,9 +29,13 @@ NodeTree *new_node_tree(NodeTree *ptr){
 NodeTree *create_tree(NodeTree *ptr, NodeTree *parent){
 	ptr = new_node_tree(ptr);
 
-	ptr->energy = 300;
+	ptr->energy = 1000;
 	ptr->life_days = 0;
 	ptr->max_life_days = 195 + rand() % 11; // [195; 205]
+
+	ptr->color[0] = 50;
+	ptr->color[1] = 255;
+	ptr->color[2] = 50;
 
 	if(parent == 0){
 		for(int i = 0; i < 16; i++){
@@ -40,10 +44,18 @@ NodeTree *create_tree(NodeTree *ptr, NodeTree *parent){
 			}
 		}
 	}else{
+		ptr->color[0] = parent->color[0];
+		ptr->color[1] = parent->color[1];
+		ptr->color[2] = parent->color[2];
+
 		for(int i = 0; i < 16; i++){
 			for(int j = 0; j < 4; j++){
 				if(rand() % 100 == 0){
 					ptr->genom[i][j] = rand() % 32;
+
+					ptr->color[0] = 100+rand()%156;
+					ptr->color[1] = 100+rand()%156;
+					ptr->color[2] = 100+rand()%156;
 				}else{
 					ptr->genom[i][j] = parent->genom[i][j];
 				}

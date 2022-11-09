@@ -1,5 +1,6 @@
 typedef struct node_tree {
 	int genom[16][4];
+	int color[3];
 	int energy;
 	int life_days;
 	int max_life_days;
