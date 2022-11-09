@@ -3,10 +3,10 @@
 
 #include "trees.h"
 
-const int WIDTH = 800, HEIGHT = 600;
+const int WIDTH = 1000, HEIGHT = 600;
 const int SIZE = 5;
-const int MAP_WIDTH = 160;
-const int MAP_HEIGHT = 120;
+const int MAP_WIDTH = 200; //160*2; // 320
+const int MAP_HEIGHT = 120; //120*2; // 240
 
 const int MAX_LIGHT_POWER = 8;
 int light_power = MAX_LIGHT_POWER;
@@ -25,7 +25,7 @@ int main(){
 	int map_trees_buffer[MAP_WIDTH][MAP_HEIGHT][2];
 
 	for(int x = 0; x < MAP_WIDTH; x++){
-		for(int y = 0; y < MAP_WIDTH; y++){
+		for(int y = 0; y < MAP_HEIGHT; y++){
 			map_trees[x][y][0] = 0;
 			map_trees[x][y][1] = 0;
 			map_points[x][y] = 0;
@@ -39,12 +39,9 @@ int main(){
 	NodeTree *first_node_tree_ptr = node_tree_init();
 
 	tree_ptr = create_tree(first_node_tree_ptr, 0);
-	map_trees[80][110][0] = 1;
-	map_trees[80][110][1] = 0;
-	map_points[80][110] = tree_ptr;
-
-
-	//SetTargetFPS(10);
+	map_trees[80][190][0] = 1;
+	map_trees[80][190][1] = 0;
+	map_points[80][190] = tree_ptr;
 
 	while(!WindowShouldClose()){
 		mx = GetMouseX();
