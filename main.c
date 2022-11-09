@@ -5,8 +5,8 @@
 
 const int WIDTH = 1000, HEIGHT = 600;
 const int SIZE = 5;
-const int MAP_WIDTH = 200; //160*2; // 320
-const int MAP_HEIGHT = 120; //120*2; // 240
+const int MAP_WIDTH = 200;
+const int MAP_HEIGHT = 120;
 
 const int MAX_LIGHT_POWER = 8;
 int light_power = MAX_LIGHT_POWER;
@@ -14,6 +14,7 @@ int energy_power = 3;
 
 unsigned long generation_count = 0;
 int mx, my;
+int x_offset;
 
 int main(){
 	InitWindow(WIDTH, HEIGHT, "Digital Trees");
@@ -39,9 +40,9 @@ int main(){
 	NodeTree *first_node_tree_ptr = node_tree_init();
 
 	tree_ptr = create_tree(first_node_tree_ptr, 0);
-	map_trees[80][190][0] = 1;
-	map_trees[80][190][1] = 0;
-	map_points[80][190] = tree_ptr;
+	map_trees[100][110][0] = 1;
+	map_trees[100][110][1] = 0;
+	map_points[100][110] = tree_ptr;
 
 	while(!WindowShouldClose()){
 		mx = GetMouseX();
@@ -50,6 +51,7 @@ int main(){
 		BeginDrawing();
 
 		ClearBackground((Color){20, 20, 20, 255});
+
 
 		for(int x = 0; x < MAP_WIDTH; x++){
 			light_power = MAX_LIGHT_POWER;
@@ -95,21 +97,26 @@ int main(){
 							}
 						}
 
-						if(x + 1 < MAP_WIDTH && map_points[x][y]->genom[map_trees[x][y][1]][1] < 16){ // right
+						if(map_points[x][y]->genom[map_trees[x][y][1]][1] < 16){ // right
 							if(map_trees[x+1][y][0] == 0){
-								map_trees_buffer[x+1][y][0] = 2;
-								map_trees_buffer[x+1][y][1] = map_points[x][y]->genom[map_trees[x][y][1]][1];
-								map_points_buffer[x+1][y] = map_points[x][y];
+								if(x + 1 < MAP_WIDTH){x_offset = x + 1;}
+								else{x_offset = 0;}
+
+								map_trees_buffer[x_offset][y][0] = 2;
+								map_trees_buffer[x_offset][y][1] = map_points[x][y]->genom[map_trees[x][y][1]][1];
+								map_points_buffer[x_offset][y] = map_points[x][y];
 
 								map_trees_buffer[x][y][0] = 3;
 							}
 						}
 
-						if(x - 1 >= 0 && map_points[x][y]->genom[map_trees[x][y][1]][3] < 16){ // left
+						if(map_points[x][y]->genom[map_trees[x][y][1]][3] < 16){ // left
 							if(map_trees[x-1][y][0] == 0){
-								map_trees_buffer[x-1][y][0] = 2;
-								map_trees_buffer[x-1][y][1] = map_points[x][y]->genom[map_trees[x][y][1]][3];
-								map_points_buffer[x-1][y] = map_points[x][y];
+								if(x - 1 >= 0){ x_offset = x - 1; }
+								else{ x_offset = MAP_WIDTH - 1; }
+								map_trees_buffer[x_offset][y][0] = 2;
+								map_trees_buffer[x_offset][y][1] = map_points[x][y]->genom[map_trees[x][y][1]][3];
+								map_points_buffer[x_offset][y] = map_points[x][y];
 
 								map_trees_buffer[x][y][0] = 3;
 							}
