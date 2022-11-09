@@ -3,10 +3,10 @@
 
 #include "trees.h"
 
-const int WIDTH = 1000, HEIGHT = 600;
-const int SIZE = 5;
-const int MAP_WIDTH = 200;
-const int MAP_HEIGHT = 120;
+const int WIDTH = 900, HEIGHT = 600;
+const int SIZE = 3;
+const int MAP_WIDTH = 300;
+const int MAP_HEIGHT = 200;
 
 const int MAX_LIGHT_POWER = 8;
 int light_power = MAX_LIGHT_POWER;
@@ -40,9 +40,9 @@ int main(){
 	NodeTree *first_node_tree_ptr = node_tree_init();
 
 	tree_ptr = create_tree(first_node_tree_ptr, 0);
-	map_trees[100][110][0] = 1;
-	map_trees[100][110][1] = 0;
-	map_points[100][110] = tree_ptr;
+	map_trees[250][190][0] = 1;
+	map_trees[250][190][1] = 0;
+	map_points[250][190] = tree_ptr;
 
 	while(!WindowShouldClose()){
 		mx = GetMouseX();
@@ -127,6 +127,7 @@ int main(){
 
 					} else if(map_trees[x][y][0] == 3){ // tree
 						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){50, 255, 50, 255});
+
 					}
 
 					if(mx > x * SIZE && mx <= x * SIZE + SIZE && my > y * SIZE && my <= y * SIZE + SIZE){

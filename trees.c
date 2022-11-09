@@ -31,7 +31,7 @@ NodeTree *create_tree(NodeTree *ptr, NodeTree *parent){
 
 	ptr->energy = 300;
 	ptr->life_days = 0;
-	ptr->max_life_days = 95 + rand() % 11; // [95; 105]
+	ptr->max_life_days = 195 + rand() % 11; // [195; 205]
 
 	if(parent == 0){
 		for(int i = 0; i < 16; i++){
