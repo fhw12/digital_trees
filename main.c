@@ -248,11 +248,13 @@ int main(){
 		}
 
 		generation_count++;
+
+		DrawText(TextFormat("generation: %d", generation_count), 120, 10, 10, WHITE);
+		DrawText(TextFormat("trees: %d", count_trees), 120, 30, 10, WHITE);
+
 		}
 
-		//DrawText(TextFormat("generation: %d", generation_count), 120, 10, 10, WHITE);
-		//DrawText(TextFormat("trees: %d", count_trees), 120, 30, 10, WHITE);
-
+		
 
 		EndDrawing();
 	}
