@@ -141,8 +141,11 @@ int main(){
 						
 
 					} else if(map_trees[x][y][0] == 3){ // tree
-						DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){map_points[x][y]->color[0], map_points[x][y]->color[1], map_points[x][y]->color[2], 255});
-
+						if(view_mode == 0){
+							DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){map_points[x][y]->color[0], map_points[x][y]->color[1], map_points[x][y]->color[2], 255});
+						} else {
+							DrawRectangle(x*SIZE, y*SIZE, SIZE, SIZE, (Color){255 - (MAX_LIGHT_POWER - light_power) * 20, 255 - (MAX_LIGHT_POWER - light_power) * 20, 255 - (MAX_LIGHT_POWER - light_power) * 20, 255});
+						}
 					}
 
 					if(mx > x * SIZE && mx <= x * SIZE + SIZE && my > y * SIZE && my <= y * SIZE + SIZE){
@@ -167,10 +170,10 @@ int main(){
 						map_points[x][y]->energy += light_power * energy_power;
 					}
 
-					light_power--;
-					energy_power--;
+					if(light_power > 0){light_power--;}
+					if(energy_power > 0){energy_power--;}
 
-					map_points[x][y]->energy -= 10;
+					map_points[x][y]->energy -= 7;
 
 				} else {
 					if(energy_power < 3) { energy_power++; }
@@ -189,6 +192,7 @@ int main(){
 		DrawText(TextFormat("FPS: %d", GetFPS()), 10, 10, 10, BLACK);
 		DrawText(TextFormat("mouse: (%d, %d)", mx, my), 10, 30, 10, BLACK);
 
+		if(view_mode == 0){
 		for(int x = 0; x < MAP_WIDTH; x++){
 			for(int y = 0; y < MAP_HEIGHT; y++){
 
@@ -244,9 +248,10 @@ int main(){
 		}
 
 		generation_count++;
+		}
 
-		DrawText(TextFormat("generation: %d", generation_count), 120, 10, 10, WHITE);
-		DrawText(TextFormat("trees: %d", count_trees), 120, 30, 10, WHITE);
+		//DrawText(TextFormat("generation: %d", generation_count), 120, 10, 10, WHITE);
+		//DrawText(TextFormat("trees: %d", count_trees), 120, 30, 10, WHITE);
 
 
 		EndDrawing();
