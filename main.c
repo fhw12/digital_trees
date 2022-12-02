@@ -52,7 +52,6 @@ int main(){
 
 		ClearBackground((Color){20, 20, 20, 255});
 
-
 		for(int x = 0; x < MAP_WIDTH; x++){
 			light_power = MAX_LIGHT_POWER;
 			energy_power = 3;
@@ -205,12 +204,10 @@ int main(){
 		if(tree_ptr != 0){
 		while(tree_ptr->next != 0){
 			tree_ptr = tree_ptr->next;
-			//if(tree_ptr->life_days != 0){ break; }
 			if(tree_ptr->life_days > tree_ptr->max_life_days || tree_ptr->energy < 0){
 				NodeTree *tmp_next;
 				if(tree_ptr->next != 0){ tmp_next = tree_ptr->next; } else { tmp_next = 0; }
 				delete_node_tree(first_node_tree_ptr, tree_ptr);
-				//break;
 				if(tmp_next != 0){
 					tree_ptr = tmp_next; continue;
 				} else {

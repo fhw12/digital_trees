@@ -13,11 +13,9 @@ NodeTree *node_tree_init(){
 }
 
 NodeTree *new_node_tree(NodeTree *ptr){
-	//if(ptr != 0){
 	while(ptr->next != 0){
 		ptr = ptr->next;
 	}
-	//}
 
 	ptr->next = malloc(sizeof(NodeTree));
 	ptr = ptr->next;
@@ -67,18 +65,16 @@ NodeTree *create_tree(NodeTree *ptr, NodeTree *parent){
 }
 
 void delete_node_tree(NodeTree *ptr, NodeTree *delete_ptr){
-	//if(ptr != 0){
-		while(ptr->next != delete_ptr){
-			ptr = ptr->next;
-		}
+	while(ptr->next != delete_ptr){
+		ptr = ptr->next;
+	}
 	
 
-		if(delete_ptr->next != 0){
-			ptr->next = delete_ptr->next;
-		}else{
-			ptr->next = 0;
-		}
+	if(delete_ptr->next != 0){
+		ptr->next = delete_ptr->next;
+	}else{
+		ptr->next = 0;
+	}
 		
-		free(delete_ptr);
-	//}
+	free(delete_ptr);
 }
