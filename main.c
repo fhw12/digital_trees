@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "raylib.h"
 
 #include "trees.h"
@@ -7,6 +8,7 @@ const int WIDTH = 900, HEIGHT = 600;
 const int SIZE = 3;
 const int MAP_WIDTH = 300;
 const int MAP_HEIGHT = 200;
+int view_mode = 0;
 
 const int MAX_LIGHT_POWER = 8;
 int light_power = MAX_LIGHT_POWER;
@@ -15,6 +17,20 @@ int energy_power = 3;
 unsigned long generation_count = 0;
 int mx, my;
 int x_offset;
+
+void set_view_mode_to_normal(){ view_mode = 0; }
+void set_view_mode_to_light(){ view_mode = 1; }
+
+void button(char *text, int x, int y, int width, int height, Color color, void (*func)()){
+	if(mx > x && mx < x + width && my > y && my < y + height){
+		if(IsMouseButtonPressed(0)){
+			func();
+		}
+	}
+
+	DrawRectangle(x, y, width, height, color);
+	DrawText(text, x+width/2-strlen(text)/2*5, y+height/2-5, 10, (Color){255, 255, 255, 255});
+}
 
 int main(){
 	InitWindow(WIDTH, HEIGHT, "Digital Trees");
@@ -161,6 +177,12 @@ int main(){
 				}
 			}
 		}
+
+		int r = 100, g = 100, b = 100;
+		if(view_mode == 0){ g = 200; } else { g = 100; }
+		button("normal", 250, 10, 75, 25, (Color){r, g, b, 255}, set_view_mode_to_normal);
+		if(view_mode == 1){ g = 200; } else { g = 100; }
+		button("light", 350, 10, 75, 25, (Color){r, g, b, 255}, set_view_mode_to_light);
 
 		DrawRectangle(5, 5, 100, 50, Fade(WHITE, 0.9f));
 		DrawRectangleLines(5, 5, 100, 50, WHITE);
